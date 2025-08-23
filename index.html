@@ -17,7 +17,10 @@
 
     .cards-wrapper {
         display: flex;
+        justify-content: center;
+        align-items: center;
         gap: 30px;
+        width: 100%;
     }
 
     .id-card {
@@ -31,51 +34,52 @@
         flex-direction: column;
         justify-content: space-between;
         position: relative;
-        border-left: 1px solid #999;  /* বাম পাশে চিকন বর্ডার */
-        border-right: 1px solid #999; /* ডান পাশে চিকন বর্ডার */
+        border-left: 1px solid #999;
+        border-right: 1px solid #999;
     }
 
     /* ===== Watermark (Front Only) ===== */
     .front .watermark {
         position: absolute;
-        top: 69%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 68%;
+        width: 70%;
         height: auto;
-        opacity: 0.09;
-        z-index: 0;
+        opacity: 0.1;
+        z-index: 1; /* ওয়াটারমার্ক পিছনে থাকবে */
         pointer-events: none;
     }
 
-    /* Header */
-    .header {
+    /* Header (Front) */
+    .front .header {
         background: #1e88e5;
         color: #fff;
         text-align: center;
         padding: 12px 5px 25px 5px;
         position: relative;
-        z-index: 2;
+        z-index: 3;
     }
-    .header img {
+    .front .header img {
         width: 26px;
         position: absolute;
         left: 8px;
         top: 4px;
     }
-    .header h1 {
+    .front .header h1 {
         font-size: 10px;
         margin: 0;
         font-weight: bold;
         padding-left: 25px;
     }
-    .header h2 {
+    .front .header h2 {
         font-size: 9px;
         margin: 0;
         padding-left: 25px;
     }
 
-    .header::after {
+    /* Curve effect (Front only) */
+    .front .header::after {
         content: "";
         position: absolute;
         bottom: -25px;
@@ -84,6 +88,32 @@
         height: 50px;
         background: #1e88e5;
         border-radius: 50%/20px;
+    }
+
+    /* Back header (straight, no curve) */
+    .back .header {
+        background: #1e88e5;
+        color: #fff;
+        text-align: center;
+        padding: 8px 5px;
+        position: relative;
+    }
+    .back .header img {
+        width: 22px;
+        position: absolute;
+        left: 8px;
+        top: 4px;
+    }
+    .back .header h1 {
+        font-size: 10px;
+        margin: 0;
+        font-weight: bold;
+        padding-left: 25px;
+    }
+    .back .header h2 {
+        font-size: 9px;
+        margin: 0;
+        padding-left: 25px;
     }
 
     /* Photo */
@@ -95,7 +125,8 @@
         margin: -20px auto 10px auto;
         border: 2px solid #fff;
         overflow: hidden;
-        z-index: 2;
+        z-index: 5;
+        position: relative;
     }
     .photo img {
         width: 100%;
@@ -107,7 +138,7 @@
     .info {
         text-align: center;
         padding: 5px 10px;
-        z-index: 2;
+        z-index: 5;
         position: relative;
     }
     .info h3 {
@@ -127,7 +158,7 @@
         font-size: 10px;
         padding: 0 18px;
         line-height: 1.6;
-        z-index: 2;
+        z-index: 5;
         position: relative;
     }
     .details b {
@@ -142,11 +173,11 @@
         text-align: center;
         font-size: 10px;
         padding: 3px;
-        z-index: 2;
+        z-index: 5;
         position: relative;
     }
 
-    /* Back side */
+    /* Back content */
     .back .content {
         padding: 15px;
         text-align: center;
@@ -263,11 +294,12 @@
     document.getElementById("downloadBtn").addEventListener("click", function() {
         var element = document.getElementById("cardArea");
         var opt = {
-            margin:       0,
+            margin:       [0.5,0,0.5,0], // উপরে নিচে ফাঁকা
             filename:     'id-card.pdf',
             image:        { type: 'jpeg', quality: 1 },
             html2canvas:  { scale: 3 },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+            pagebreak:    { mode: 'avoid' }
         };
         html2pdf().set(opt).from(element).save().then(() => {
             document.getElementById("downloadBtn").style.display = "none";

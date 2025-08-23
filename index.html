@@ -14,7 +14,6 @@
         font-family: Arial, sans-serif;
         padding: 20px;
     }
-
     .cards-wrapper {
         display: flex;
         justify-content: center;
@@ -22,7 +21,6 @@
         gap: 30px;
         width: 100%;
     }
-
     .id-card {
         width: 2.1in;
         height: 3.37in;
@@ -38,10 +36,10 @@
         border-right: 1px solid #999;
     }
 
-    /* ===== Watermark ===== */
+    /* Watermark */
     .front .watermark {
         position: absolute;
-        top: 69%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 60%;
@@ -49,7 +47,7 @@
         z-index: 0;
         pointer-events: none;
     }
-
+    /* Front content above watermark */
     .front .header,
     .front .photo,
     .front .info,
@@ -59,6 +57,7 @@
         z-index: 1;
     }
 
+    /* Front header */
     .front .header {
         background: #1e88e5;
         color: #fff;
@@ -117,7 +116,6 @@
 <body>
 
 <div class="cards-wrapper" id="cardArea">
-    <!-- Front -->
     <div class="id-card front">
         <img src="watermark.png" alt="Watermark" class="watermark">
         <div class="header">
@@ -141,7 +139,6 @@
         <div class="footer">shakrirhan44@gmail.com</div>
     </div>
 
-    <!-- Back -->
     <div class="id-card back">
         <div class="header">
             <img src="logo.png" alt="Logo">
@@ -169,8 +166,8 @@ document.getElementById("downloadBtn").addEventListener("click", function() {
     html2pdf().set({
         margin:       [0.5,0,0.5,0],
         filename:     'id-card.pdf',
-        image:        { type: 'png', quality: 1 }, // ✅ PNG ব্যবহার করুন
-        html2canvas:  { scale: 4, useCORS: true, allowTaint: true, logging: true },
+        image:        { type: 'png', quality: 1 }, // PNG ব্যবহার ✅
+        html2canvas:  { scale: 5, useCORS: true, allowTaint: true, logging: true },
         jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: 'avoid' }
     }).from(document.getElementById("cardArea")).save();

@@ -41,13 +41,13 @@
     /* ===== Watermark (Front Only) ===== */
     .front .watermark {
         position: absolute;
-        top: 69%;       /* উপরে-নিচে নড়াতে পারবেন */
-        left: 50%;      /* ডানে-বামে নড়াতে পারবেন */
+        top: 70%;       /* উপরে-নিচে সরাতে পারবেন */
+        left: 50%;      /* ডানে-বামে সরাতে পারবেন */
         transform: translate(-50%, -50%);
-        width: 60%;     /* সাইজ পরিবর্তন করতে পারবেন */
+        width: 65%;     /* সাইজ পরিবর্তন করতে পারবেন */
         height: auto;
-        opacity: 0.5;  /* ফেড-ইন/আউট করতে পারবেন */
-        z-index: 0;     /* সব কন্টেন্টের নিচে রাখলাম */
+        opacity: 0.2;   /* স্বচ্ছতা পরিবর্তন করতে পারবেন */
+        z-index: 1;     /* সব কন্টেন্টের নিচে থাকবে */
         pointer-events: none;
     }
 
@@ -58,7 +58,7 @@
         text-align: center;
         padding: 12px 5px 25px 5px;
         position: relative;
-        z-index: 2;
+        z-index: 3;
     }
     .front .header img {
         width: 26px;
@@ -78,7 +78,7 @@
         padding-left: 25px;
     }
 
-    /* Curve effect (Front only) */
+    /* Curve effect */
     .front .header::after {
         content: "";
         position: absolute;
@@ -90,14 +90,14 @@
         border-radius: 50%/20px;
     }
 
-    /* Back header (straight) */
+    /* Back header */
     .back .header {
         background: #1e88e5;
         color: #fff;
         text-align: center;
         padding: 8px 5px;
         position: relative;
-        z-index: 2;
+        z-index: 3;
     }
     .back .header img {
         width: 22px;
@@ -126,7 +126,7 @@
         margin: -20px auto 10px auto;
         border: 2px solid #fff;
         overflow: hidden;
-        z-index: 3;
+        z-index: 5;
         position: relative;
     }
     .photo img {
@@ -139,7 +139,7 @@
     .info {
         text-align: center;
         padding: 5px 10px;
-        z-index: 3;
+        z-index: 5;
         position: relative;
     }
     .info h3 {
@@ -159,7 +159,7 @@
         font-size: 10px;
         padding: 0 18px;
         line-height: 1.6;
-        z-index: 3;
+        z-index: 5;
         position: relative;
     }
     .details b {
@@ -174,7 +174,7 @@
         text-align: center;
         font-size: 10px;
         padding: 3px;
-        z-index: 3;
+        z-index: 5;
         position: relative;
     }
 
@@ -235,7 +235,7 @@
 <div class="cards-wrapper" id="cardArea">
     <!-- Front Side -->
     <div class="id-card front">
-        <img src="watermark.png" alt="Watermark" class="watermark">
+        <img src="watermark.png" alt="Watermark" class="watermark" crossorigin="anonymous">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -298,7 +298,7 @@
             margin:       [0.5,0,0.5,0],
             filename:     'id-card.pdf',
             image:        { type: 'jpeg', quality: 1 },
-            html2canvas:  { scale: 4, useCORS: true },  // Watermark fix
+            html2canvas:  { scale: 4, useCORS: true, allowTaint: true }, // Watermark fix
             jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
             pagebreak:    { mode: 'avoid' }
         };

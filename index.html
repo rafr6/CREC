@@ -38,17 +38,26 @@
         border-right: 1px solid #999;
     }
 
-    /* ===== Watermark (Front Only) ===== */
-    .front .watermark {
+    /* ===== Watermark (Front Only as background) ===== */
+    .front {
+        background-image: url("watermark.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 70%;
+        background-origin: content-box;
+        background-clip: content-box;
+        opacity: 1;
+    }
+    .front::before {
+        content: "";
         position: absolute;
-        top: 69%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 70%;
-        height: auto;
-        opacity: 0.1;
-        z-index: 1; /* ওয়াটারমার্ক পিছনে থাকবে */
-        pointer-events: none;
+        inset: 0;
+        background: rgba(255,255,255,0.9); /* হালকা কভার যেন টেক্সট স্পষ্ট থাকে */
+        z-index: 0;
+    }
+    .front > * {
+        position: relative;
+        z-index: 5;
     }
 
     /* Header (Front) */
@@ -58,7 +67,7 @@
         text-align: center;
         padding: 12px 5px 25px 5px;
         position: relative;
-        z-index: 3;
+        z-index: 5;
     }
     .front .header img {
         width: 26px;
@@ -77,8 +86,6 @@
         margin: 0;
         padding-left: 25px;
     }
-
-    /* Curve effect (Front only) */
     .front .header::after {
         content: "";
         position: absolute;
@@ -125,8 +132,8 @@
         margin: -20px auto 10px auto;
         border: 2px solid #fff;
         overflow: hidden;
-        z-index: 5;
         position: relative;
+        z-index: 5;
     }
     .photo img {
         width: 100%;
@@ -139,7 +146,6 @@
         text-align: center;
         padding: 5px 10px;
         z-index: 5;
-        position: relative;
     }
     .info h3 {
         margin: 5px 0 2px 0;
@@ -159,7 +165,6 @@
         padding: 0 18px;
         line-height: 1.6;
         z-index: 5;
-        position: relative;
     }
     .details b {
         display: inline-block;
@@ -174,7 +179,6 @@
         font-size: 10px;
         padding: 3px;
         z-index: 5;
-        position: relative;
     }
 
     /* Back content */
@@ -234,7 +238,6 @@
 <div class="cards-wrapper" id="cardArea">
     <!-- Front Side -->
     <div class="id-card front">
-        <img src="watermark.png" alt="Watermark" class="watermark">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -294,12 +297,12 @@
     document.getElementById("downloadBtn").addEventListener("click", function() {
         var element = document.getElementById("cardArea");
         var opt = {
-            margin:       [0.5,0,0.5,0], // উপরে নিচে ফাঁকা
-            filename:     'id-card.pdf',
-            image:        { type: 'jpeg', quality: 1 },
-            html2canvas:  { scale: 3 },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-            pagebreak:    { mode: 'avoid' }
+            margin: [0.5,0,0.5,0],
+            filename: 'id-card.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 3, useCORS: true },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: 'avoid' }
         };
         html2pdf().set(opt).from(element).save().then(() => {
             document.getElementById("downloadBtn").style.display = "none";

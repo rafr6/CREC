@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ID Card</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        background: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    .id-card {
+        width: 2.1in;
+        height: 3.37in;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 0 8px rgba(0,0,0,0.3);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    /* Header (blue area) */
+    .header {
+        background: #1e88e5;
+        color: #fff;
+        text-align: center;
+        padding: 8px 5px 25px 5px;
+        position: relative;
+    }
+    .header img {
+        width: 26px;
+        position: absolute;
+        left: 10px;
+        top: 8px;
+    }
+    .header h1 {
+        font-size: 10px;
+        margin: 0;
+        font-weight: bold;
+    }
+    .header h2 {
+        font-size: 9px;
+        margin: 0;
+    }
+
+    /* Curve effect bottom */
+    .header::after {
+        content: "";
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: #1e88e5;
+        border-radius: 50%/20px;
+    }
+
+    /* Photo */
+    .photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #eee;
+        margin: -40px auto 10px auto;
+        border: 2px solid #fff;
+        overflow: hidden;
+        z-index: 2;
+    }
+    .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Name & designation */
+    .info {
+        text-align: center;
+        padding: 5px 10px;
+    }
+    .info h3 {
+        margin: 5px 0 2px 0;
+        font-size: 13px;
+        font-weight: bold;
+    }
+    .info h4 {
+        margin: 0 0 8px 0;
+        font-size: 11px;
+        font-weight: bold;
+        color: #1e40af;
+    }
+
+    /* Details */
+    .details {
+        font-size: 10px;
+        padding: 0 18px;
+        line-height: 1.6;
+    }
+    .details b {
+        display: inline-block;
+        width: 50px;
+    }
+
+    /* Footer */
+    .footer {
+        background: #1e88e5;
+        color: #fff;
+        text-align: center;
+        font-size: 10px;
+        padding: 3px;
+    }
+
+    /* Back side */
+    .back .content {
+        padding: 15px;
+        text-align: center;
+        font-size: 10px;
+        flex: 1;
+    }
+    .back .content h3 {
+        font-size: 11px;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+    .qr {
+        margin: 10px auto;
+        width: 90px;
+        height: 90px;
+        background: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .qr img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .signatures {
+        display: flex;
+        justify-content: space-between;
+        font-size: 9px;
+        padding: 0 12px 6px 12px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<!-- Front Side -->
+<div class="id-card front">
+    <div class="header">
+        <img src="logo.png" alt="Logo">
+        <h1>中国中铁六局集团有限公司</h1>
+        <h2>CREC Padma Bridge Rail Link Project</h2>
+    </div>
+    <div class="photo">
+        <img src="photo.jpg" alt="Photo">
+    </div>
+    <div class="info">
+        <h3>MD RAHIM MIA</h3>
+        <h4>EXCAVATOR (Operator)</h4>
+    </div>
+    <div class="details">
+        <b>ID:</b> 189-0327W-0489 <br>
+        <b>DOB:</b> 02-04-2002 <br>
+        <b>Phone:</b> +880 1747-902058 <br>
+        <b>NID:</b> 4662866286 <br>
+        <b>Blood:</b> O+ <br>
+        <b>Join:</b> 20-February-2020
+    </div>
+    <div class="footer">shakrirhan44@gmail.com</div>
+</div>
+
+<!-- Back Side -->
+<div class="id-card back">
+    <div class="header">
+        <img src="logo.png" alt="Logo">
+        <h1>中国中铁六局集团有限公司</h1>
+        <h2>CREC Padma Bridge Rail Link Project</h2>
+    </div>
+    <div class="content">
+        <h3>Address:</h3>
+        China Project, Polia, Bhanga, <br>
+        Faridpur, Dhaka, Bangladesh.
+        <div class="qr">
+            <img src="qrcode.png" alt="QR Code">
+        </div>
+    </div>
+    <div class="signatures">
+        <div>
+            <hr>
+            Authority Signature
+        </div>
+        <div>
+            <hr>
+            Operator Signature
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

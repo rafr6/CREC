@@ -38,18 +38,18 @@
         width: 26px;
         position: absolute;
         left: 8px;
-        top: 4px; /* logo উপরে আনা হলো */
+        top: 4px;
     }
     .header h1 {
         font-size: 10px;
         margin: 0;
         font-weight: bold;
-        padding-left: 25px; /* নাম একটু ডান দিকে */
+        padding-left: 25px;
     }
     .header h2 {
         font-size: 9px;
         margin: 0;
-        padding-left: 25px; /* নাম একটু ডান দিকে */
+        padding-left: 25px;
     }
 
     /* Curve effect bottom */
@@ -64,16 +64,34 @@
         border-radius: 50%/20px;
     }
 
+    /* Watermark */
+    .watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 140px;
+        height: 140px;
+        opacity: 0.08; /* হালকা ওয়াটারমার্ক */
+        transform: translate(-50%, -50%);
+        z-index: 0;
+    }
+    .watermark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
     /* Photo */
     .photo {
         width: 80px;
         height: 80px;
         border-radius: 50%;
         background: #eee;
-        margin: -20px auto 10px auto; /* ছবি নিচে নামানো হলো */
+        margin: -20px auto 10px auto;
         border: 2px solid #fff;
         overflow: hidden;
         z-index: 2;
+        position: relative;
     }
     .photo img {
         width: 100%;
@@ -85,6 +103,8 @@
     .info {
         text-align: center;
         padding: 5px 10px;
+        position: relative;
+        z-index: 2;
     }
     .info h3 {
         margin: 5px 0 2px 0;
@@ -103,6 +123,8 @@
         font-size: 10px;
         padding: 0 18px;
         line-height: 1.6;
+        position: relative;
+        z-index: 2;
     }
     .details b {
         display: inline-block;
@@ -116,6 +138,8 @@
         text-align: center;
         font-size: 10px;
         padding: 3px;
+        position: relative;
+        z-index: 2;
     }
 
     /* Back side */
@@ -152,13 +176,11 @@
         text-align: center;
     }
 
-    /* Back page bottom header (light gray) */
+    /* Back page bottom thin header */
     .back-footer {
         background: #e5e5e5;
-        color: #333;
-        text-align: center;
-        font-size: 9px;
-        padding: 3px;
+        height: 6px;  /* চিকন রেখা */
+        width: 100%;
     }
 </style>
 </head>
@@ -170,6 +192,10 @@
         <img src="logo.png" alt="Logo">
         <h1>中国中铁六局集团有限公司</h1>
         <h2>CREC Padma Bridge Rail Link Project</h2>
+    </div>
+    <!-- Watermark -->
+    <div class="watermark">
+        <img src="logo.png" alt="Watermark">
     </div>
     <div class="photo">
         <img src="photo.jpg" alt="Photo">
@@ -214,7 +240,8 @@
             Operator Signature
         </div>
     </div>
-    <div class="back-footer">中国中铁六局集团有限公司 - CREC Padma Bridge Rail Link Project</div>
+    <!-- Thin footer line -->
+    <div class="back-footer"></div>
 </div>
 
 </body>

@@ -38,27 +38,35 @@
         border-right: 1px solid #999;
     }
 
-    /* ===== Watermark (Front Only) ===== */
+    /* ===== Watermark ===== */
     .front .watermark {
         position: absolute;
-        top: 70%;
+        top: 69%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 65%;
-        height: auto;
-        opacity: 0.2;
-        z-index: 1;
+        width: 60%;
+        opacity: 0.3;
+        z-index: 0;
         pointer-events: none;
     }
 
-    /* Header (Front) */
+    /* Front card content above watermark */
+    .front .header,
+    .front .photo,
+    .front .info,
+    .front .details,
+    .front .footer {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Header */
     .front .header {
         background: #1e88e5;
         color: #fff;
         text-align: center;
         padding: 12px 5px 25px 5px;
         position: relative;
-        z-index: 3;
     }
     .front .header img {
         width: 26px;
@@ -66,19 +74,9 @@
         left: 8px;
         top: 4px;
     }
-    .front .header h1 {
-        font-size: 10px;
-        margin: 0;
-        font-weight: bold;
-        padding-left: 25px;
-    }
-    .front .header h2 {
-        font-size: 9px;
-        margin: 0;
-        padding-left: 25px;
-    }
+    .front .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
+    .front .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
 
-    /* Curve effect */
     .front .header::after {
         content: "";
         position: absolute;
@@ -90,7 +88,6 @@
         border-radius: 50%/20px;
     }
 
-    /* Back header */
     .back .header {
         background: #1e88e5;
         color: #fff;
@@ -99,23 +96,9 @@
         position: relative;
         z-index: 3;
     }
-    .back .header img {
-        width: 22px;
-        position: absolute;
-        left: 8px;
-        top: 4px;
-    }
-    .back .header h1 {
-        font-size: 10px;
-        margin: 0;
-        font-weight: bold;
-        padding-left: 25px;
-    }
-    .back .header h2 {
-        font-size: 9px;
-        margin: 0;
-        padding-left: 25px;
-    }
+    .back .header img { width: 22px; position: absolute; left: 8px; top: 4px; }
+    .back .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
+    .back .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
 
     /* Photo */
     .photo {
@@ -126,98 +109,29 @@
         margin: -20px auto 10px auto;
         border: 2px solid #fff;
         overflow: hidden;
-        z-index: 5;
         position: relative;
     }
-    .photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+    .photo img { width: 100%; height: 100%; object-fit: cover; }
 
     /* Info */
-    .info {
-        text-align: center;
-        padding: 5px 10px;
-        z-index: 5;
-        position: relative;
-    }
-    .info h3 {
-        margin: 5px 0 2px 0;
-        font-size: 13px;
-        font-weight: bold;
-    }
-    .info h4 {
-        margin: 0 0 8px 0;
-        font-size: 11px;
-        font-weight: bold;
-        color: #1e40af;
-    }
+    .info { text-align: center; padding: 5px 10px; }
+    .info h3 { margin: 5px 0 2px 0; font-size: 13px; font-weight: bold; }
+    .info h4 { margin: 0 0 8px 0; font-size: 11px; font-weight: bold; color: #1e40af; }
 
     /* Details */
-    .details {
-        font-size: 10px;
-        padding: 0 18px;
-        line-height: 1.6;
-        z-index: 5;
-        position: relative;
-    }
-    .details b {
-        display: inline-block;
-        width: 50px;
-    }
+    .details { font-size: 10px; padding: 0 18px; line-height: 1.6; }
+    .details b { display: inline-block; width: 50px; }
 
-    /* Footer */
-    .footer {
-        background: #1e88e5;
-        color: #fff;
-        text-align: center;
-        font-size: 10px;
-        padding: 3px;
-        z-index: 5;
-        position: relative;
-    }
+    .footer { background: #1e88e5; color: #fff; text-align: center; font-size: 10px; padding: 3px; }
 
     /* Back content */
-    .back .content {
-        padding: 15px;
-        text-align: center;
-        font-size: 10px;
-        flex: 1;
-    }
-    .back .content h3 {
-        font-size: 11px;
-        font-weight: bold;
-        margin-bottom: 6px;
-    }
-    .qr {
-        margin: 10px auto;
-        width: 90px;
-        height: 90px;
-        background: #eee;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .qr img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    .signatures {
-        display: flex;
-        justify-content: space-between;
-        font-size: 9px;
-        padding: 0 12px 6px 12px;
-        text-align: center;
-    }
+    .back .content { padding: 15px; text-align: center; font-size: 10px; flex: 1; }
+    .back .content h3 { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
+    .qr { margin: 10px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; }
+    .qr img { width: 100%; height: 100%; object-fit: contain; }
+    .signatures { display: flex; justify-content: space-between; font-size: 9px; padding: 0 12px 6px 12px; text-align: center; }
+    .back-footer { background: #e5e5e5; height: 6px; }
 
-    .back-footer {
-        background: #e5e5e5;
-        height: 6px;
-    }
-
-    /* Download Button */
     #downloadBtn {
         margin-top: 20px;
         padding: 8px 15px;
@@ -235,8 +149,8 @@
 <div class="cards-wrapper" id="cardArea">
     <!-- Front Side -->
     <div class="id-card front">
-        <!-- Watermark Base64 -->
-        <img src="data:image/png;base64,PUT-YOUR-WATERMARK-BASE64-HERE" alt="Watermark" class="watermark">
+        <!-- Watermark -->
+        <img src="watermark.png" alt="Watermark" class="watermark">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -289,22 +203,20 @@
     </div>
 </div>
 
-<!-- Download Button -->
 <button id="downloadBtn">Download PDF</button>
 
 <script>
-    document.getElementById("downloadBtn").addEventListener("click", function() {
-        var element = document.getElementById("cardArea");
-        var opt = {
-            margin:       [0.5,0,0.5,0],
-            filename:     'id-card.pdf',
-            image:        { type: 'jpeg', quality: 1 },
-            html2canvas:  { scale: 4, useCORS: true, allowTaint: true },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-            pagebreak:    { mode: 'avoid' }
-        };
-        html2pdf().set(opt).from(element).save();
-    });
+document.getElementById("downloadBtn").addEventListener("click", function() {
+    var element = document.getElementById("cardArea");
+    html2pdf().set({
+        margin:       [0.5,0,0.5,0],
+        filename:     'id-card.pdf',
+        image:        { type: 'jpeg', quality: 1 },
+        html2canvas:  { scale: 4, useCORS: true, allowTaint: true, logging: true },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: 'avoid' }
+    }).from(element).save();
+});
 </script>
 
 </body>

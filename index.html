@@ -38,26 +38,11 @@
         border-right: 1px solid #999;
     }
 
-    /* ===== Watermark (Front Only as background) ===== */
+    /* ===== Watermark (Front Only) ===== */
     .front {
-        background-image: url("watermark.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 70%;
-        background-origin: content-box;
-        background-clip: content-box;
-        opacity: 1;
-    }
-    .front::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(255,255,255,0.9); /* হালকা কভার যেন টেক্সট স্পষ্ট থাকে */
-        z-index: 0;
-    }
-    .front > * {
         position: relative;
-        z-index: 5;
+        background: url("watermark.png") no-repeat center center;
+        background-size: 65%;   /* সাইজ এখানে পরিবর্তন করতে পারবেন */
     }
 
     /* Header (Front) */
@@ -67,7 +52,7 @@
         text-align: center;
         padding: 12px 5px 25px 5px;
         position: relative;
-        z-index: 5;
+        z-index: 3;
     }
     .front .header img {
         width: 26px;
@@ -86,6 +71,8 @@
         margin: 0;
         padding-left: 25px;
     }
+
+    /* Curve effect (Front only) */
     .front .header::after {
         content: "";
         position: absolute;
@@ -132,8 +119,8 @@
         margin: -20px auto 10px auto;
         border: 2px solid #fff;
         overflow: hidden;
-        position: relative;
         z-index: 5;
+        position: relative;
     }
     .photo img {
         width: 100%;
@@ -146,6 +133,7 @@
         text-align: center;
         padding: 5px 10px;
         z-index: 5;
+        position: relative;
     }
     .info h3 {
         margin: 5px 0 2px 0;
@@ -165,6 +153,7 @@
         padding: 0 18px;
         line-height: 1.6;
         z-index: 5;
+        position: relative;
     }
     .details b {
         display: inline-block;
@@ -179,6 +168,7 @@
         font-size: 10px;
         padding: 3px;
         z-index: 5;
+        position: relative;
     }
 
     /* Back content */
@@ -297,16 +287,14 @@
     document.getElementById("downloadBtn").addEventListener("click", function() {
         var element = document.getElementById("cardArea");
         var opt = {
-            margin: [0.5,0,0.5,0],
-            filename: 'id-card.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 3, useCORS: true },
-            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: 'avoid' }
+            margin:       [0.5,0,0.5,0], 
+            filename:     'id-card.pdf',
+            image:        { type: 'jpeg', quality: 1 },
+            html2canvas:  { scale: 3, useCORS: true }, // ✅ watermark ঠিকমতো আসবে
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+            pagebreak:    { mode: 'avoid' }
         };
-        html2pdf().set(opt).from(element).save().then(() => {
-            document.getElementById("downloadBtn").style.display = "none";
-        });
+        html2pdf().set(opt).from(element).save();
     });
 </script>
 

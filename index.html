@@ -9,11 +9,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 30px;
+        gap: 20px;
         background: #f0f0f0;
         font-family: Arial, sans-serif;
         padding: 20px;
     }
+
+    #watermarkInput { margin-bottom: 15px; }
+
     .cards-wrapper {
         display: flex;
         justify-content: center;
@@ -21,6 +24,7 @@
         gap: 30px;
         width: 100%;
     }
+
     .id-card {
         width: 2.1in;
         height: 3.37in;
@@ -47,7 +51,7 @@
         z-index: 0;
         pointer-events: none;
     }
-    /* Front content above watermark */
+
     .front .header,
     .front .photo,
     .front .info,
@@ -115,9 +119,12 @@
 </head>
 <body>
 
+<h3>Upload Watermark PNG</h3>
+<input type="file" id="watermarkInput" accept="image/png">
+
 <div class="cards-wrapper" id="cardArea">
     <div class="id-card front">
-        <img src="watermark.png" alt="Watermark" class="watermark">
+        <img src="watermark.png" alt="Watermark" class="watermark" id="watermarkImg">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -162,11 +169,24 @@
 <button id="downloadBtn">Download PDF</button>
 
 <script>
+// Watermark upload
+document.getElementById("watermarkInput").addEventListener("change", function(event){
+    const file = event.target.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            document.getElementById("watermarkImg").src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// PDF Download
 document.getElementById("downloadBtn").addEventListener("click", function() {
     html2pdf().set({
         margin:       [0.5,0,0.5,0],
         filename:     'id-card.pdf',
-        image:        { type: 'png', quality: 1 }, // PNG ব্যবহার ✅
+        image:        { type: 'png', quality: 1 },
         html2canvas:  { scale: 5, useCORS: true, allowTaint: true, logging: true },
         jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: 'avoid' }

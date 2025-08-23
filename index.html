@@ -5,126 +5,139 @@
 <title>ID Card</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <style>
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        background: #f0f0f0;
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
 
-    #watermarkInput { margin-bottom: 15px; }
+input[type="file"] { margin-bottom: 15px; }
 
-    .cards-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        width: 100%;
-    }
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
 
-    .id-card {
-        width: 2.1in;
-        height: 3.37in;
-        border-radius: 12px;
-        background: #fff;
-        box-shadow: 0 0 8px rgba(0,0,0,0.3);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: relative;
-        border-left: 1px solid #999;
-        border-right: 1px solid #999;
-    }
+.id-card {
+    width: 2.1in;
+    height: 3.37in;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+}
 
-    /* Watermark */
-    .front .watermark {
-        position: absolute;
-        top: 69%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 64%;
-        opacity: 0.9;
-        z-index: 0;
-        pointer-events: none;
-    }
+/* Front watermark */
+.front .watermark {
+    position: absolute;
+    top: 69%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64%;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
 
-    .front .header,
-    .front .photo,
-    .front .info,
-    .front .details,
-    .front .footer {
-        position: relative;
-        z-index: 1;
-    }
+/* Back watermark */
+.back .watermark-back {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
 
-    /* Front header */
-    .front .header {
-        background: #1e88e5;
-        color: #fff;
-        text-align: center;
-        padding: 12px 5px 25px 5px;
-        position: relative;
-    }
-    .front .header img { width: 26px; position: absolute; left: 8px; top: 4px; }
-    .front .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
-    .front .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
-    .front .header::after {
-        content: "";
-        position: absolute;
-        bottom: -25px;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        background: #1e88e5;
-        border-radius: 50%/20px;
-    }
+.front .header,
+.front .photo,
+.front .info,
+.front .details,
+.front .footer {
+    position: relative;
+    z-index: 1;
+}
 
-    .back .header {
-        background: #1e88e5;
-        color: #fff;
-        text-align: center;
-        padding: 8px 5px;
-        position: relative;
-        z-index: 3;
-    }
-    .back .header img { width: 22px; position: absolute; left: 8px; top: 4px; }
-    .back .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
-    .back .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
+.front .header {
+    background: #1e88e5;
+    color: #fff;
+    text-align: center;
+    padding: 12px 5px 25px 5px;
+    position: relative;
+}
+.front .header img { width: 26px; position: absolute; left: 8px; top: 4px; }
+.front .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
+.front .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
+.front .header::after {
+    content: "";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #1e88e5;
+    border-radius: 50%/20px;
+}
 
-    .photo { width: 80px; height: 80px; border-radius: 50%; background: #eee; margin: -20px auto 10px auto; border: 2px solid #fff; overflow: hidden; position: relative; }
-    .photo img { width: 100%; height: 100%; object-fit: cover; }
+.back .header {
+    background: #1e88e5;
+    color: #fff;
+    text-align: center;
+    padding: 8px 5px;
+    position: relative;
+    z-index: 3;
+}
+.back .header img { width: 22px; position: absolute; left: 8px; top: 4px; }
+.back .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
+.back .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
 
-    .info { text-align: center; padding: 5px 10px; }
-    .info h3 { margin: 5px 0 2px 0; font-size: 13px; font-weight: bold; }
-    .info h4 { margin: 0 0 8px 0; font-size: 11px; font-weight: bold; color: #1e40af; }
+.photo { width: 80px; height: 80px; border-radius: 50%; background: #eee; margin: -20px auto 10px auto; border: 2px solid #fff; overflow: hidden; position: relative; }
+.photo img { width: 100%; height: 100%; object-fit: cover; }
 
-    .details { font-size: 10px; padding: 0 18px; line-height: 1.6; }
-    .details b { display: inline-block; width: 50px; }
+.info { text-align: center; padding: 5px 10px; }
+.info h3 { margin: 5px 0 2px 0; font-size: 13px; font-weight: bold; }
+.info h4 { margin: 0 0 8px 0; font-size: 11px; font-weight: bold; color: #1e40af; }
 
-    .footer { background: #1e88e5; color: #fff; text-align: center; font-size: 10px; padding: 3px; }
+.details { font-size: 10px; padding: 0 18px; line-height: 1.6; }
+.details b { display: inline-block; width: 50px; }
 
-    .back .content { padding: 15px; text-align: center; font-size: 10px; flex: 1; }
-    .back .content h3 { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
-    .qr { margin: 10px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; }
-    .qr img { width: 100%; height: 100%; object-fit: contain; }
-    .signatures { display: flex; justify-content: space-between; font-size: 9px; padding: 0 12px 6px 12px; text-align: center; }
-    .back-footer { background: #e5e5e5; height: 6px; }
+.footer { background: #1e88e5; color: #fff; text-align: center; font-size: 10px; padding: 3px; }
 
-    #downloadBtn { margin-top: 20px; padding: 8px 15px; background: #28a745; border: none; color: #fff; border-radius: 5px; cursor: pointer; font-size: 14px; }
+.back .content { padding: 15px; text-align: center; font-size: 10px; flex: 1; position: relative; }
+.back .content h3 { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
+.qr { margin: 10px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;}
+.qr img { width: 100%; height: 100%; object-fit: contain; }
+.signatures { display: flex; justify-content: space-between; font-size: 9px; padding: 0 12px 6px 12px; text-align: center; }
+.back-footer { background: #e5e5e5; height: 6px; }
+
+#downloadBtn { margin-top: 20px; padding: 8px 15px; background: #28a745; border: none; color: #fff; border-radius: 5px; cursor: pointer; font-size: 14px; }
 </style>
 </head>
 <body>
 
-<h3>Upload Watermark PNG</h3>
-<input type="file" id="watermarkInput" accept="image/png">
+<h3>Upload Front Watermark PNG</h3>
+<input type="file" id="watermarkInputFront" accept="image/png">
+<h3>Upload Back Watermark PNG</h3>
+<input type="file" id="watermarkInputBack" accept="image/png">
 
 <div class="cards-wrapper" id="cardArea">
     <div class="id-card front">
-        <img src="watermark.png" alt="Watermark" class="watermark" id="watermarkImg">
+        <img src="watermark.png" alt="Watermark" class="watermark" id="watermarkImgFront">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -147,6 +160,7 @@
     </div>
 
     <div class="id-card back">
+        <img src="watermark.png" alt="Back Watermark" class="watermark-back" id="watermarkImgBack">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -169,13 +183,25 @@
 <button id="downloadBtn">Download PDF</button>
 
 <script>
-// Watermark upload
-document.getElementById("watermarkInput").addEventListener("change", function(event){
+// Front watermark upload
+document.getElementById("watermarkInputFront").addEventListener("change", function(event){
     const file = event.target.files[0];
     if(file){
         const reader = new FileReader();
         reader.onload = function(e){
-            document.getElementById("watermarkImg").src = e.target.result;
+            document.getElementById("watermarkImgFront").src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Back watermark upload
+document.getElementById("watermarkInputBack").addEventListener("change", function(event){
+    const file = event.target.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            document.getElementById("watermarkImgBack").src = e.target.result;
         }
         reader.readAsDataURL(file);
     }

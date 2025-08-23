@@ -41,7 +41,7 @@
     /* ===== Watermark ===== */
     .front .watermark {
         position: absolute;
-        top: 69%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 60%;
@@ -50,7 +50,6 @@
         pointer-events: none;
     }
 
-    /* Front card content above watermark */
     .front .header,
     .front .photo,
     .front .info,
@@ -60,7 +59,6 @@
         z-index: 1;
     }
 
-    /* Header */
     .front .header {
         background: #1e88e5;
         color: #fff;
@@ -68,15 +66,9 @@
         padding: 12px 5px 25px 5px;
         position: relative;
     }
-    .front .header img {
-        width: 26px;
-        position: absolute;
-        left: 8px;
-        top: 4px;
-    }
+    .front .header img { width: 26px; position: absolute; left: 8px; top: 4px; }
     .front .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
     .front .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
-
     .front .header::after {
         content: "";
         position: absolute;
@@ -100,31 +92,18 @@
     .back .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
     .back .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
 
-    /* Photo */
-    .photo {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: #eee;
-        margin: -20px auto 10px auto;
-        border: 2px solid #fff;
-        overflow: hidden;
-        position: relative;
-    }
+    .photo { width: 80px; height: 80px; border-radius: 50%; background: #eee; margin: -20px auto 10px auto; border: 2px solid #fff; overflow: hidden; position: relative; }
     .photo img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Info */
     .info { text-align: center; padding: 5px 10px; }
     .info h3 { margin: 5px 0 2px 0; font-size: 13px; font-weight: bold; }
     .info h4 { margin: 0 0 8px 0; font-size: 11px; font-weight: bold; color: #1e40af; }
 
-    /* Details */
     .details { font-size: 10px; padding: 0 18px; line-height: 1.6; }
     .details b { display: inline-block; width: 50px; }
 
     .footer { background: #1e88e5; color: #fff; text-align: center; font-size: 10px; padding: 3px; }
 
-    /* Back content */
     .back .content { padding: 15px; text-align: center; font-size: 10px; flex: 1; }
     .back .content h3 { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
     .qr { margin: 10px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; }
@@ -132,33 +111,21 @@
     .signatures { display: flex; justify-content: space-between; font-size: 9px; padding: 0 12px 6px 12px; text-align: center; }
     .back-footer { background: #e5e5e5; height: 6px; }
 
-    #downloadBtn {
-        margin-top: 20px;
-        padding: 8px 15px;
-        background: #28a745;
-        border: none;
-        color: #fff;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+    #downloadBtn { margin-top: 20px; padding: 8px 15px; background: #28a745; border: none; color: #fff; border-radius: 5px; cursor: pointer; font-size: 14px; }
 </style>
 </head>
 <body>
 
 <div class="cards-wrapper" id="cardArea">
-    <!-- Front Side -->
+    <!-- Front -->
     <div class="id-card front">
-        <!-- Watermark -->
         <img src="watermark.png" alt="Watermark" class="watermark">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
             <h2>CREC Padma Bridge Rail Link Project</h2>
         </div>
-        <div class="photo">
-            <img src="photo.jpg" alt="Photo">
-        </div>
+        <div class="photo"><img src="photo.jpg" alt="Photo"></div>
         <div class="info">
             <h3>MD RAHIM MIA</h3>
             <h4>EXCAVATOR (Operator)</h4>
@@ -174,7 +141,7 @@
         <div class="footer">shakrirhan44@gmail.com</div>
     </div>
 
-    <!-- Back Side -->
+    <!-- Back -->
     <div class="id-card back">
         <div class="header">
             <img src="logo.png" alt="Logo">
@@ -185,19 +152,11 @@
             <h3>Address:</h3>
             China Project, Polia, Bhanga, <br>
             Faridpur, Dhaka, Bangladesh.
-            <div class="qr">
-                <img src="qrcode.png" alt="QR Code">
-            </div>
+            <div class="qr"><img src="qrcode.png" alt="QR Code"></div>
         </div>
         <div class="signatures">
-            <div>
-                <hr>
-                Authority Signature
-            </div>
-            <div>
-                <hr>
-                Operator Signature
-            </div>
+            <div><hr>Authority Signature</div>
+            <div><hr>Operator Signature</div>
         </div>
         <div class="back-footer"></div>
     </div>
@@ -207,15 +166,14 @@
 
 <script>
 document.getElementById("downloadBtn").addEventListener("click", function() {
-    var element = document.getElementById("cardArea");
     html2pdf().set({
         margin:       [0.5,0,0.5,0],
         filename:     'id-card.pdf',
-        image:        { type: 'jpeg', quality: 1 },
+        image:        { type: 'png', quality: 1 }, // ✅ PNG ব্যবহার করুন
         html2canvas:  { scale: 4, useCORS: true, allowTaint: true, logging: true },
         jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: 'avoid' }
-    }).from(element).save();
+    }).from(document.getElementById("cardArea")).save();
 });
 </script>
 

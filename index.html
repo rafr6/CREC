@@ -41,13 +41,13 @@
     /* ===== Watermark (Front Only) ===== */
     .front .watermark {
         position: absolute;
-        top: 70%;       /* উপরে-নিচে সরাতে পারবেন */
-        left: 50%;      /* ডানে-বামে সরাতে পারবেন */
+        top: 70%;
+        left: 50%;
         transform: translate(-50%, -50%);
-        width: 65%;     /* সাইজ পরিবর্তন করতে পারবেন */
+        width: 65%;
         height: auto;
-        opacity: 0.2;   /* স্বচ্ছতা পরিবর্তন করতে পারবেন */
-        z-index: 1;     /* সব কন্টেন্টের নিচে থাকবে */
+        opacity: 0.2;
+        z-index: 1;
         pointer-events: none;
     }
 
@@ -235,7 +235,8 @@
 <div class="cards-wrapper" id="cardArea">
     <!-- Front Side -->
     <div class="id-card front">
-        <img src="watermark.png" alt="Watermark" class="watermark" crossorigin="anonymous">
+        <!-- Watermark Base64 -->
+        <img src="data:image/png;base64,PUT-YOUR-WATERMARK-BASE64-HERE" alt="Watermark" class="watermark">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -298,7 +299,7 @@
             margin:       [0.5,0,0.5,0],
             filename:     'id-card.pdf',
             image:        { type: 'jpeg', quality: 1 },
-            html2canvas:  { scale: 4, useCORS: true, allowTaint: true }, // Watermark fix
+            html2canvas:  { scale: 4, useCORS: true, allowTaint: true },
             jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
             pagebreak:    { mode: 'avoid' }
         };

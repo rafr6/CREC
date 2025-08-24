@@ -14,7 +14,6 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
 }
-
 input[type="file"] { margin-bottom: 15px; }
 
 .cards-wrapper {
@@ -24,7 +23,6 @@ input[type="file"] { margin-bottom: 15px; }
     gap: 30px;
     width: 100%;
 }
-
 .id-card {
     width: 2.1in;
     height: 3.37in;
@@ -40,30 +38,20 @@ input[type="file"] { margin-bottom: 15px; }
     border-right: 1px solid #999;
 }
 
-/* Front watermark */
-.front .watermark {
+/* Watermark */
+.front .watermark,
+.back .watermark-back {
     position: absolute;
     top: 69%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    opacity: 0.2;
-    z-index: 0;
+    width: 85%;
+    opacity: 0.3;
+    z-index: 1;
     pointer-events: none;
 }
 
-/* Back watermark */
-.back .watermark-back {
-    position: absolute;
-    top: 56%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    opacity: 0.2;
-    z-index: 0;
-    pointer-events: none;
-}
-
+/* সব content উপরে রাখলাম */
 .front .header,
 .front .photo,
 .front .info,
@@ -71,9 +59,10 @@ input[type="file"] { margin-bottom: 15px; }
 .front .footer,
 .back .header,
 .back .content,
-.back .signatures {
+.back .signatures,
+.back .back-footer {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .front .header {
@@ -96,7 +85,6 @@ input[type="file"] { margin-bottom: 15px; }
     background: #1e88e5;
     border-radius: 50%/20px;
 }
-
 .back .header {
     background: #1e88e5;
     color: #fff;
@@ -107,7 +95,7 @@ input[type="file"] { margin-bottom: 15px; }
 .back .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
 .back .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
 
-.photo { width: 80px; height: 80px; border-radius: 50%; background: #eee; margin: -20px auto 10px auto; border: 2px solid #fff; overflow: hidden; position: relative; }
+.photo { width: 80px; height: 80px; border-radius: 50%; background: #eee; margin: -20px auto 10px auto; border: 2px solid #fff; overflow: hidden; }
 .photo img { width: 100%; height: 100%; object-fit: cover; }
 
 .info { text-align: center; padding: 5px 10px; }
@@ -124,9 +112,10 @@ input[type="file"] { margin-bottom: 15px; }
 .qr { margin: 10px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; }
 .qr img { width: 100%; height: 100%; object-fit: contain; }
 
+/* Signature area */
 .signatures { display: flex; justify-content: space-between; font-size: 9px; padding: 0 12px 6px 12px; text-align: center; }
-.sign-box { width: 80px; height: 40px; border-top: 1px solid #000; margin-top: 5px; }
-.sign-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.signatures div { width: 45%; }
+.signatures img { width: 70px; height: auto; margin-bottom: 2px; }
 
 .back-footer { background: #e5e5e5; height: 6px; }
 
@@ -139,13 +128,12 @@ input[type="file"] { margin-bottom: 15px; }
 <input type="file" id="watermarkInputFront" accept="image/png">
 <h3>Upload Back Watermark PNG</h3>
 <input type="file" id="watermarkInputBack" accept="image/png">
-<h3>Upload Authority Signature PNG</h3>
+<h3>Upload Authority Signature</h3>
 <input type="file" id="authoritySignInput" accept="image/png">
-<h3>Upload Operator Signature PNG</h3>
+<h3>Upload Operator Signature</h3>
 <input type="file" id="operatorSignInput" accept="image/png">
 
 <div class="cards-wrapper" id="cardArea">
-    <!-- Front Card -->
     <div class="id-card front">
         <img src="watermark.png" alt="Watermark" class="watermark" id="watermarkImgFront">
         <div class="header">
@@ -169,7 +157,6 @@ input[type="file"] { margin-bottom: 15px; }
         <div class="footer">shakrirhan44@gmail.com</div>
     </div>
 
-    <!-- Back Card -->
     <div class="id-card back">
         <img src="watermark.png" alt="Back Watermark" class="watermark-back" id="watermarkImgBack">
         <div class="header">
@@ -185,12 +172,12 @@ input[type="file"] { margin-bottom: 15px; }
         </div>
         <div class="signatures">
             <div>
-                <div class="sign-box"><img id="authoritySignImg" src="" alt=""></div>
-                Authority Signature
+                <img id="authoritySign" src="authority.png" alt="Authority Signature">
+                <hr>Authority Signature
             </div>
             <div>
-                <div class="sign-box"><img id="operatorSignImg" src="" alt=""></div>
-                Operator Signature
+                <img id="operatorSign" src="operator.png" alt="Operator Signature">
+                <hr>Operator Signature
             </div>
         </div>
         <div class="back-footer"></div>
@@ -200,8 +187,8 @@ input[type="file"] { margin-bottom: 15px; }
 <button id="downloadBtn">Download PDF</button>
 
 <script>
-// Utility: upload image preview
-function uploadImage(inputId, imgId){
+// Upload function
+function handleUpload(inputId, imgId){
     document.getElementById(inputId).addEventListener("change", function(event){
         const file = event.target.files[0];
         if(file){
@@ -214,21 +201,21 @@ function uploadImage(inputId, imgId){
     });
 }
 
-// Upload bindings
-uploadImage("watermarkInputFront", "watermarkImgFront");
-uploadImage("watermarkInputBack", "watermarkImgBack");
-uploadImage("authoritySignInput", "authoritySignImg");
-uploadImage("operatorSignInput", "operatorSignImg");
+// Bind uploads
+handleUpload("watermarkInputFront","watermarkImgFront");
+handleUpload("watermarkInputBack","watermarkImgBack");
+handleUpload("authoritySignInput","authoritySign");
+handleUpload("operatorSignInput","operatorSign");
 
 // PDF Download
 document.getElementById("downloadBtn").addEventListener("click", function() {
     html2pdf().set({
-        margin:       [0.5,0,0.5,0],
-        filename:     'id-card.pdf',
-        image:        { type: 'png', quality: 1 },
-        html2canvas:  { scale: 5, useCORS: true, allowTaint: true },
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: 'avoid' }
+        margin: [0.5,0,0.5,0],
+        filename: 'id-card.pdf',
+        image: { type: 'png', quality: 1 },
+        html2canvas: { scale: 5, useCORS: true, allowTaint: true, logging: false },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid' }
     }).from(document.getElementById("cardArea")).save();
 });
 </script>

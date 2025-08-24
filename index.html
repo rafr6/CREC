@@ -38,33 +38,6 @@ input[type="file"] { margin-bottom: 15px; }
     border-right: 1px solid #999;
 }
 
-/* Watermark */
-.front .watermark,
-.back .watermark-back {
-    position: absolute;
-    top: 69%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 85%;
-    opacity: 0.3;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* সব content উপরে রাখলাম */
-.front .header,
-.front .photo,
-.front .info,
-.front .details,
-.front .footer,
-.back .header,
-.back .content,
-.back .signatures,
-.back .back-footer {
-    position: relative;
-    z-index: 2;
-}
-
 .front .header {
     background: #1e88e5;
     color: #fff;
@@ -115,7 +88,7 @@ input[type="file"] { margin-bottom: 15px; }
 /* Signature area */
 .signatures { display: flex; justify-content: space-between; font-size: 9px; padding: 0 12px 6px 12px; text-align: center; }
 .signatures div { width: 45%; }
-.signatures img { width: 70px; height: auto; margin-bottom: 2px; }
+.signatures img { height: 25px; width: auto; margin-bottom: 2px; } /* height পরিবর্তন করে signature ছোট/বড় করতে পারবেন */
 
 .back-footer { background: #e5e5e5; height: 6px; }
 
@@ -124,10 +97,6 @@ input[type="file"] { margin-bottom: 15px; }
 </head>
 <body>
 
-<h3>Upload Front Watermark PNG</h3>
-<input type="file" id="watermarkInputFront" accept="image/png">
-<h3>Upload Back Watermark PNG</h3>
-<input type="file" id="watermarkInputBack" accept="image/png">
 <h3>Upload Authority Signature</h3>
 <input type="file" id="authoritySignInput" accept="image/png">
 <h3>Upload Operator Signature</h3>
@@ -135,7 +104,6 @@ input[type="file"] { margin-bottom: 15px; }
 
 <div class="cards-wrapper" id="cardArea">
     <div class="id-card front">
-        <img src="watermark.png" alt="Watermark" class="watermark" id="watermarkImgFront">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -158,7 +126,6 @@ input[type="file"] { margin-bottom: 15px; }
     </div>
 
     <div class="id-card back">
-        <img src="watermark.png" alt="Back Watermark" class="watermark-back" id="watermarkImgBack">
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h1>中国中铁六局集团有限公司</h1>
@@ -202,8 +169,6 @@ function handleUpload(inputId, imgId){
 }
 
 // Bind uploads
-handleUpload("watermarkInputFront","watermarkImgFront");
-handleUpload("watermarkInputBack","watermarkImgBack");
 handleUpload("authoritySignInput","authoritySign");
 handleUpload("operatorSignInput","operatorSign");
 

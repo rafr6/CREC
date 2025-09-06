@@ -14,8 +14,6 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
 }
-input[type="file"] { margin-bottom: 15px; }
-
 .cards-wrapper {
     display: flex;
     justify-content: center;
@@ -72,13 +70,13 @@ input[type="file"] { margin-bottom: 15px; }
 .back .header h1 { font-size: 10px; margin: 0; font-weight: bold; padding-left: 25px; }
 .back .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
 
-/* Profile Photo – নিচে নামানো */
+/* Profile Photo */
 .photo { 
     width: 80px; 
     height: 80px; 
     border-radius: 50%; 
     background: #eee; 
-    margin: -20px auto 10px auto; /* আগের -40px → এখন -20px */
+    margin: -20px auto 10px auto;
     border: 2px solid #fff; 
     overflow: hidden; 
     position: relative;
@@ -97,7 +95,7 @@ input[type="file"] { margin-bottom: 15px; }
 
 .back .content { padding: 15px; text-align: center; font-size: 10px; flex: 1; }
 .back .content h3 { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
-.qr { margin: 20px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; } /* ⬅️ নিচে নামানো */
+.qr { margin: 20px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; }
 .qr img { width: 100%; height: 100%; object-fit: contain; }
 
 /* Signature area */
@@ -130,11 +128,6 @@ input[type="file"] { margin-bottom: 15px; }
 </style>
 </head>
 <body>
-
-<h3>Upload Authorised Signature</h3>
-<input type="file" id="authorisedSignInput" accept="image/png">
-<h3>Upload Operator Signature</h3>
-<input type="file" id="operatorSignInput" accept="image/png">
 
 <div class="cards-wrapper" id="cardArea">
     <!-- FRONT -->
@@ -190,24 +183,6 @@ input[type="file"] { margin-bottom: 15px; }
 <button id="downloadBtn">Download PDF</button>
 
 <script>
-// Upload function
-function handleUpload(inputId, imgId){
-    document.getElementById(inputId).addEventListener("change", function(event){
-        const file = event.target.files[0];
-        if(file){
-            const reader = new FileReader();
-            reader.onload = function(e){
-                document.getElementById(imgId).src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-}
-
-// Bind uploads
-handleUpload("authoritySignInput","authoritySign");
-handleUpload("operatorSignInput","operatorSign");
-
 // PDF Download
 document.getElementById("downloadBtn").addEventListener("click", function() {
     html2pdf().set({

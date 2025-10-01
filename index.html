@@ -22,8 +22,8 @@ body {
     width: 100%;
 }
 .id-card {
-    width: 2.1in;
-    height: 3.37in;
+    width: 54mm;       /* সঠিক চওড়া */
+    height: 85.6mm;    /* সঠিক লম্বা */
     border-radius: 0;
     background: #fff;
     box-shadow: 0 0 8px rgba(0,0,0,0.3);
@@ -71,14 +71,14 @@ body {
 .back .header h2 { font-size: 9px; margin: 0; padding-left: 25px; }
 
 /* Profile Photo */
-.photo { 
-    width: 80px; 
-    height: 80px; 
-    border-radius: 50%; 
-    background: #eee; 
+.photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #eee;
     margin: -20px auto 10px auto;
-    border: 2px solid #fff; 
-    overflow: hidden; 
+    border: 2px solid #fff;
+    overflow: hidden;
     position: relative;
     z-index: 3;
 }
@@ -95,47 +95,61 @@ body {
 
 .back .content { padding: 15px; text-align: center; font-size: 10px; flex: 1; }
 .back .content h3 { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
-.qr { margin: 20px auto; width: 90px; height: 90px; background: #eee; display: flex; align-items: center; justify-content: center; }
+
+.qr {
+    margin: 20px auto;
+    width: 90px;
+    height: 90px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .qr img { width: 100%; height: 100%; object-fit: contain; }
 
 /* Signature area */
-.signatures { 
-    display: flex; 
-    justify-content: space-between; 
-    font-size: 9px; 
-    padding: 0 12px 6px 12px; 
-    text-align: center; 
+.signatures {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    padding: 0 12px 6px 12px;
+    text-align: center;
     align-items: flex-end; /* নিচের লাইন সমান হবে */
 }
-.signatures div { 
-    width: 45%; 
+.signatures div {
+    width: 45%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end; /* hr সবসময় নিচে যাবে */
 }
-.signatures img { 
-    height: 25px; 
-    width: auto; 
+.signatures img {
+    height: 25px;
+    width: auto;
     display: block;
     margin: 0 auto;
 }
 /* ডান পাশের Operator Signature বড় কিন্তু hr ঠিক থাকবে */
-.signatures div:last-child img {
-    height: 33px;  
-}
-.signatures hr { 
-    margin: 2px 0 0 0;  
+.signatures div:last-child img { height: 33px; }
+.signatures hr {
+    margin: 2px 0 0 0;
     border: none;
     border-top: 1px solid #000;
 }
-
 .back-footer { background: #e5e5e5; height: 6px; }
 
-#downloadBtn { margin-top: 20px; padding: 8px 15px; background: #28a745; border: none; color: #fff; border-radius: 5px; cursor: pointer; font-size: 14px; }
+#downloadBtn {
+    margin-top: 20px;
+    padding: 8px 15px;
+    background: #28a745;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
 </style>
 </head>
 <body>
-
 <div class="cards-wrapper" id="cardArea">
     <!-- FRONT -->
     <div class="id-card front">
@@ -202,6 +216,5 @@ document.getElementById("downloadBtn").addEventListener("click", function() {
     }).from(document.getElementById("cardArea")).save();
 });
 </script>
-
 </body>
 </html>
